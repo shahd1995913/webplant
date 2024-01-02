@@ -25,7 +25,7 @@ class_names_model2 = [
 ]
 
 # Load the first model
-model1 = keras.models.load_model('keras_model1.h5')
+model1 = keras.models.load_model('Tomato.h5')
 
 # Load the second model
 model2 = keras.models.load_model('pomegranate_model.h5')
