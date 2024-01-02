@@ -37,6 +37,15 @@ def preprocess_image(image):
     img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
     return keras.applications.mobilenet.preprocess_input(img_array)
 
+def preprocess_image_model2(image):
+    # Adjust the preprocessing for Model 2 if needed
+    img = image.resize((224, 224))  # Resize the image to match the input size of the model
+    img = img.convert('RGB')  # Convert image to RGB format
+    img_array = keras.preprocessing.image.img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
+    # Add any additional preprocessing specific to Model 2 if needed
+    return img_array  # No specific preprocess_input for Model 2
+
 def main():
     # ... (rest of your code)
 
@@ -52,20 +61,15 @@ def main():
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', use_column_width=True)
 
-        # Preprocess the image
-        processed_image = preprocess_image(image)
+        # Preprocess the image for both models
+        processed_image_model1 = preprocess_image(image)
+        processed_image_model2 = preprocess_image_model2(image)
 
         # Make predictions for Model 1
-        predictions_model1 = model1.predict(processed_image)
+        predictions_model1 = model1.predict(processed_image_model1)
         predicted_class_index_model1 = predictions_model1.argmax()
         predicted_class_name_model1 = class_names_model1[predicted_class_index_model1]
         confidence_model1 = predictions_model1[0][predicted_class_index_model1] * 100
-
-        # Make predictions for Model 2
-        predictions_model2 = model2.predict(processed_image)
-        predicted_class_index_model2 = predictions_model2.argmax()
-        predicted_class_name_model2 = class_names_model2[predicted_class_index_model2]
-        confidence_model2 = predictions_model2[0][predicted_class_index_model2] * 100
 
         # Display predicted class and confidence for Model 1
         st.markdown(
@@ -79,6 +83,12 @@ def main():
         )
 
         # ... (rest of your code for Model 1)
+
+        # Make predictions for Model 2
+        predictions_model2 = model2.predict(processed_image_model2)
+        predicted_class_index_model2 = predictions_model2.argmax()
+        predicted_class_name_model2 = class_names_model2[predicted_class_index_model2]
+        confidence_model2 = predictions_model2[0][predicted_class_index_model2] * 100
 
         # Display predicted class and confidence for Model 2
         st.markdown(
@@ -95,4 +105,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
