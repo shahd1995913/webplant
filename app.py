@@ -27,7 +27,6 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.checkbox(" فحص ثمرة الرمان", key="disabled")
-    Open the image file using PIL
     image = Image.open("Screenshot 2024-01-02 042549.png")
     resized_image = image.resize((240, 300))
     st.image(resized_image, caption='Resized Image')
