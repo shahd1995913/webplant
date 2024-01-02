@@ -14,7 +14,7 @@ from PIL import Image
 #image = Image.open("bacterial-spot-tomato.jpg")
 
     # Resize the image
-resized_image = image.resize((500, 300))
+# resized_image = image.resize((500, 300))
 
     # Display the resized image
 # st.image(resized_image, caption='Resized Image')
