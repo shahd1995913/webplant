@@ -105,11 +105,3 @@ else:
       resized_image = image.resize((240, 300))
       st.image(resized_image, caption='Resized Image')
 
-
-
-
-def main():
-
-
-if __name__ == '__main__':
-    main()
