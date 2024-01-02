@@ -10,18 +10,33 @@ from PIL import Image
 
 
 
+st.title('مرحبا بك في موقع عالم النباتات')
+st.subheader('نحن نستخدم الذكاء الاصطناعي في التعرف على مختلف الامراض', divider='rainbow')
+
 st.image('plants.png', caption='الرجاء اختيار محصول الذي تريد فحصة ')
 
 
+st.button("Reset", type="primary")
+if st.button(' فحص الرمان'):
+    st.write('الرجاء  رفع صورة الثمرة ')
+else:
+    st.write('فحص البندورة ')
 
 
-    # Open the image file using PIL
-image = Image.open("Screenshot 2024-01-02 042549.png")
 
-    # Resize the imageresized_image = image.resize((500, 300))
 
-    # Display the resized image
-st.image(resized_image, caption='Resized Image')
+
+
+
+
+#    Open the image file using PIL
+# image = Image.open("Screenshot 2024-01-02 042549.png")
+
+#     Resize the imageresized_image = image.resize((500, 300))
+
+#     Display the resized image
+# st.image(resized_image, caption='Resized Image')
+
 
 
 class_names = [
