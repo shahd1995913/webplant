@@ -26,15 +26,17 @@ else:
 col1, col2 = st.columns(2)
 
 with col1:
-    st.checkbox(" فحص ثمرة الرمان", key="disabled")
+    st.write('فحص ثمرة الرمان ')
     image = Image.open("Screenshot 2024-01-02 042549.png")
     resized_image = image.resize((240, 300))
     st.image(resized_image, caption='Resized Image')
    
     
 with col2:
-       st.checkbox("فحص ورقة البندورة", key="")
-
+    st.write('فحص ورقة البندورة ')
+    image = Image.open("Screenshot 2024-01-02 042404.png")
+    resized_image = image.resize((240, 300))
+    st.image(resized_image, caption='Resized Image')
 
 
 
