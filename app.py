@@ -27,10 +27,10 @@ if st.button(' فحص الرمان'):
 else:
     st.write('فحص البندورة ')
     with col2:
-    st.write('فحص ورقة البندورة ')
-    image = Image.open("Screenshot 2024-01-02 042404.png")
-    resized_image = image.resize((240, 300))
-    st.image(resized_image, caption='Resized Image')
+      st.write('فحص ورقة البندورة ')
+      image = Image.open("Screenshot 2024-01-02 042404.png")
+      resized_image = image.resize((240, 300))
+      st.image(resized_image, caption='Resized Image')
 
 
 
