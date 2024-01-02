@@ -30,7 +30,7 @@ with col1:
    
     
 with col2:
-       st.checkbox("Disable selectbox widget", key="disabled")
+       st.checkbox(" selectbox widget", key="")
 
 
 
