@@ -40,7 +40,7 @@ if st.button(' فحص الرمان'):
       image = Image.open("Screenshot 2024-01-02 042549.png")
       resized_image = image.resize((240, 300))
       st.image(resized_image, caption='Resized Image')
-            uploaded_file = st.file_uploader("Choose an image", type=['jpg', 'jpeg', 'png'])
+      uploaded_file = st.file_uploader("Choose an image", type=['jpg', 'jpeg', 'png'])
 
       if uploaded_file is not None:
         image = Image.open(uploaded_file)
