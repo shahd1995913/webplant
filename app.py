@@ -11,13 +11,12 @@ from PIL import Image
   
 
     # Open the image file using PIL
-#image = Image.open("bacterial-spot-tomato.jpg")
+image = Image.open("Screenshot 2024-01-02 042549.png")
 
-    # Resize the image
-# resized_image = image.resize((500, 300))
+    # Resize the imageresized_image = image.resize((500, 300))
 
     # Display the resized image
-# st.image(resized_image, caption='Resized Image')
+st.image(resized_image, caption='Resized Image')
 
 
 class_names = [
