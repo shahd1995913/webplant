@@ -8,7 +8,12 @@ from tensorflow import keras
 import numpy as np
 from PIL import Image
 
-  
+
+
+st.image('plants.png', caption='الرجاء اختيار محصول الذي تريد فحصة ')
+
+
+
 
     # Open the image file using PIL
 image = Image.open("Screenshot 2024-01-02 042549.png")
