@@ -1,4 +1,0 @@
-0 Cercospora
-1 Bacterial_Blight
-2 Anthracnose
-3 Alternaria
