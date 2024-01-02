@@ -20,10 +20,10 @@ col1, col2 = st.columns(2)
 if st.button(' فحص الرمان'):
     st.write('الرجاء  رفع صورة الثمرة ')
     with col1:
-    st.write('فحص ثمرة الرمان ')
-    image = Image.open("Screenshot 2024-01-02 042549.png")
-    resized_image = image.resize((240, 300))
-    st.image(resized_image, caption='Resized Image')
+      st.write('فحص ثمرة الرمان ')
+      image = Image.open("Screenshot 2024-01-02 042549.png")
+      resized_image = image.resize((240, 300))
+      st.image(resized_image, caption='Resized Image')
 else:
     st.write('فحص البندورة ')
     with col2:
