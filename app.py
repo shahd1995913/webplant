@@ -27,7 +27,7 @@ class_names = [
     'Alternaria'
 ]
 
-model = keras.models.load_model('pomegranate_model.h5')
+model = keras.models.load_model('keras_model.h5')
 
 def preprocess_image(image):
     img = image.resize((224, 224))  # Resize the image to match the input size of the model
