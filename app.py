@@ -1,34 +1,33 @@
+
+
 import streamlit as st
+import cv2
 from keras.models import load_model
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 from PIL import Image
 
-# Class names for the first model
-class_names_model1 = [
-    'Tomato blight disease',
-    'Bacterial spot',
-    'Tomato Yellow Leaf Curl Virus',
-    'Tomato mosaic virus',
-    'Target Spot',
-    'Powdery mildew',
-    'Spider mites Two spotted spider mite'
-]
+  
 
-# Class names for the second model
-class_names_model2 = [
+    # Open the image file using PIL
+image = Image.open("bacterial-spot-tomato.jpg")
+
+    # Resize the image
+resized_image = image.resize((500, 300))
+
+    # Display the resized image
+# st.image(resized_image, caption='Resized Image')
+
+
+class_names = [
     'Cercospora',
     'Bacterial Blight',
     'Anthracnose',
     'Alternaria'
 ]
 
-# Load the first model
-model1 = keras.models.load_model('Tomato.h5')
-
-# Load the second model
-model2 = keras.models.load_model('pomegranate_model.h5')
+model = keras.models.load_model('pomegranate_model.h5')
 
 def preprocess_image(image):
     img = image.resize((224, 224))  # Resize the image to match the input size of the model
@@ -37,23 +36,28 @@ def preprocess_image(image):
     img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
     return keras.applications.mobilenet.preprocess_input(img_array)
 
-def preprocess_image_model2(image):
-    # Adjust the preprocessing for Model 2 if needed
-    img = image.resize((224, 224))  # Resize the image to match the input size of the model
-    img = img.convert('RGB')  # Convert image to RGB format
-    img_array = keras.preprocessing.image.img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
-    # Add any additional preprocessing specific to Model 2 if needed
-    return img_array  # No specific preprocess_input for Model 2
-
 def main():
-    # ... (rest of your code)
+    # Set page width and center content
+    max_width = 800
+    st.markdown(
+        f"""
+        <style>
+        .reportview-container .main .block-container{{
+            max-width: {max_width}px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            margin: 0 auto;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-    st.subheader("Select the type of leaf for Model 1")
-    selected_leaf_type_model1 = st.selectbox("Leaf Type Model 1", class_names_model1)
+    st.title("Image Classification")
+    st.subheader("Identifying plant diseases using artificial intelligence")
 
-    st.subheader("Select the type of leaf for Model 2")
-    selected_leaf_type_model2 = st.selectbox("Leaf Type Model 2", class_names_model2)
+    st.subheader("Upload an image for classification")
+    st.text("Done by shahed Alhateeb 2023")
 
     uploaded_file = st.file_uploader("Choose an image", type=['jpg', 'jpeg', 'png'])
 
@@ -61,47 +65,57 @@ def main():
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image', use_column_width=True)
 
-        # Preprocess the image for both models
-        processed_image_model1 = preprocess_image(image)
-        processed_image_model2 = preprocess_image_model2(image)
+        # Preprocess the image
+        processed_image = preprocess_image(image)
 
-        # Make predictions for Model 1
-        predictions_model1 = model1.predict(processed_image_model1)
-        predicted_class_index_model1 = predictions_model1.argmax()
-        predicted_class_name_model1 = class_names_model1[predicted_class_index_model1]
-        confidence_model1 = predictions_model1[0][predicted_class_index_model1] * 100
+        # Make predictions
+        predictions = model.predict(processed_image)
+        predicted_class_index = predictions.argmax()
+        predicted_class_name = class_names[predicted_class_index]
+        confidence = predictions[0][predicted_class_index] * 100
 
-        # Display predicted class and confidence for Model 1
+        # Display predicted class and confidence
         st.markdown(
             """
             <div style='text-align: center;'>
-                <h2 style='font-weight: bold; color: #0072B2;'>Predicted Class Model 1</h2>
+                <h2 style='font-weight: bold; color: #0072B2;'>Predicted Class</h2>
                 <h3 style='font-weight: bold; color: #0072B2;'>{}</h3>
             </div>
-            """.format(predicted_class_name_model1),
+            """.format(predicted_class_name),
             unsafe_allow_html=True
         )
 
-        # ... (rest of your code for Model 1)
-
-        # Make predictions for Model 2
-        predictions_model2 = model2.predict(processed_image_model2)
-        predicted_class_index_model2 = predictions_model2.argmax()
-        predicted_class_name_model2 = class_names_model2[predicted_class_index_model2]
-        confidence_model2 = predictions_model2[0][predicted_class_index_model2] * 100
-
-        # Display predicted class and confidence for Model 2
         st.markdown(
             """
             <div style='text-align: center;'>
-                <h2 style='font-weight: bold; color: #0072B2;'>Predicted Class Model 2</h2>
-                <h3 style='font-weight: bold; color: #0072B2;'>{}</h3>
+                <h2 style='font-weight: bold; color: #0072B2;'>Confidence</h2>
+                <h3 style='font-weight: bold; color: #0072B2;'>{:.2f}%</h3>
             </div>
-            """.format(predicted_class_name_model2),
+            """.format(confidence),
             unsafe_allow_html=True
         )
 
-        # ... (rest of your code for Model 2)
+        # Display other classes
+        st.markdown(
+            """
+            <div style='text-align: center;'>
+                <h2 style='font-weight: bold; color: #0072B2;'>Other Classes</h2>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        for i, class_name in enumerate(class_names):
+            if i != predicted_class_index:
+                st.markdown(
+                    """
+                    <div style='text-align: center;'>
+                        <h3 style='font-weight: bold; color: #0072B2;'>{}: {:.2f}%</h3>
+                    </div>
+                    """.format(class_name, predictions[0][i] * 100),
+                    unsafe_allow_html=True
+                )
+
 
 if __name__ == '__main__':
     main()
