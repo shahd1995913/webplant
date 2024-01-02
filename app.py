@@ -15,28 +15,29 @@ st.subheader('نحن نستخدم الذكاء الاصطناعي في التع�
 
 st.image('plants.png', caption='الرجاء اختيار محصول الذي تريد فحصة ')
 
-
+col1, col2 = st.columns(2)
 # st.button("Reset", type="primary")
 if st.button(' فحص الرمان'):
     st.write('الرجاء  رفع صورة الثمرة ')
-else:
-    st.write('فحص البندورة ')
-
-
-col1, col2 = st.columns(2)
-
-with col1:
+    with col1:
     st.write('فحص ثمرة الرمان ')
     image = Image.open("Screenshot 2024-01-02 042549.png")
     resized_image = image.resize((240, 300))
     st.image(resized_image, caption='Resized Image')
-   
-    
-with col2:
+else:
+    st.write('فحص البندورة ')
+    with col2:
     st.write('فحص ورقة البندورة ')
     image = Image.open("Screenshot 2024-01-02 042404.png")
     resized_image = image.resize((240, 300))
     st.image(resized_image, caption='Resized Image')
+
+
+
+
+
+   
+    
 
 
 
